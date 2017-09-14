@@ -18,59 +18,55 @@ import javafx.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author g0056957
  */
 public class appFCRView extends javax.swing.JFrame {
-    
+
     public appFCRView() throws Exception {
         initComponents();
         JOptionPane.showMessageDialog(null, "Este programa não informa seu FCR concreto e consolidado ! Ele fornece apenas uma estimativa, com margens de erros, de acordo com seu preenchimento !");
-        icon(); 
+        icon();
     }
-    
-    
 
-    
-    public void icon(){
+    public void icon() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("IconFCRCalc.png")));
     }
-     
-    public class Chamada{
+
+    public class Chamada {
+
         private String instancia;
         private String skill;
         private String rechamada;
-        
-        public Chamada(String instancia, String skill, String rechamada){
+
+        public Chamada(String instancia, String skill, String rechamada) {
             this.instancia = instancia;
             this.skill = skill;
             this.rechamada = rechamada;
         }
-    
+
     }
-    
-    ArrayList<Chamada>listaDeChamadas = new ArrayList<>();
-    
-    public void addChamada(){
+
+    ArrayList<Chamada> listaDeChamadas = new ArrayList<>();
+
+    public void addChamada() {
         lblMenssagem.setText("");
         DefaultTableModel model = (DefaultTableModel) tblFCR.getModel();
-        if(txtInst.getText().trim().equals("")){
-            lblMenssagem.setForeground  (java.awt.Color.red);
+        if (txtInst.getText().trim().equals("")) {
+            lblMenssagem.setForeground(java.awt.Color.red);
             lblMenssagem.setText("O campo 'instância' não foi preenchido !");
-            lblMenssagem.setVisible(true);  
-        }else{
-            Chamada chamada = new Chamada(txtInst.getText(),cbxSkl.getSelectedItem().toString(),cbxRech.getSelectedItem().toString());
+            lblMenssagem.setVisible(true);
+        } else {
+            Chamada chamada = new Chamada(txtInst.getText(), cbxSkl.getSelectedItem().toString(), cbxRech.getSelectedItem().toString());
             listaDeChamadas.add(chamada);
-            model.addRow(new Object[] {tblFCR.getRowCount()+1,txtInst.getText(),cbxSkl.getSelectedItem().toString(),cbxRech.getSelectedItem().toString()});  
+            model.addRow(new Object[]{tblFCR.getRowCount() + 1, txtInst.getText(), cbxSkl.getSelectedItem().toString(), cbxRech.getSelectedItem().toString()});
         }
-        
+
     }
-    
-    public void apagaChamada()throws ArrayIndexOutOfBoundsException {
-        
+
+    public void apagaChamada() throws ArrayIndexOutOfBoundsException {
+
         try {
             DefaultTableModel model = (DefaultTableModel) tblFCR.getModel();
             model.removeRow(tblFCR.getSelectedRow());
@@ -79,23 +75,23 @@ public class appFCRView extends javax.swing.JFrame {
 
         }
     }
-    
-    public void geraResultado() throws StringIndexOutOfBoundsException{
+
+    public void geraResultado() throws StringIndexOutOfBoundsException {
         lblMenssagem.setText("");
         Double totRechamadas = 0d;
         for (int i = 0; i < tblFCR.getRowCount(); i++) {
-            if(tblFCR.getValueAt(i, 3).equals("SIM")){
+            if (tblFCR.getValueAt(i, 3).equals("SIM")) {
                 totRechamadas++;
             }
         }
-           Double totFCR = (100 - ((totRechamadas*100)/tblFCR.getRowCount()));
-           lblResultado.setForeground  (java.awt.Color.blue);
-          try {
-            lblResultado.setText("FCR total: "+totFCR.toString().substring(0, 5)+"%");
+        Double totFCR = (100 - ((totRechamadas * 100) / tblFCR.getRowCount()));
+        lblResultado.setForeground(java.awt.Color.blue);
+        try {
+            lblResultado.setText("FCR total: " + totFCR.toString().substring(0, 5) + "%");
         } catch (Exception e) {
-           lblResultado.setText("FCR total: "+totFCR.toString()+"%");
+            lblResultado.setText("FCR total: " + totFCR.toString() + "%");
         }
-           
+
     }
 
     /**
@@ -377,7 +373,7 @@ public class appFCRView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemSobreActionPerformed
-            java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InfoFrame().setVisible(true);
             }
@@ -419,10 +415,10 @@ public class appFCRView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void tray(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_tray
-                try {
+        try {
             trayOpen();
         } catch (Exception ex) {
-            
+
         }
     }//GEN-LAST:event_tray
 
@@ -430,10 +426,10 @@ public class appFCRView extends javax.swing.JFrame {
         try {
             trayOpen();
         } catch (Exception ex) {
-            
+
         }
     }//GEN-LAST:event_pkmp
-        
+
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
 
     }//GEN-LAST:event_formWindowStateChanged
@@ -443,7 +439,7 @@ public class appFCRView extends javax.swing.JFrame {
             trayOpen();
             evt.getWindow().setVisible(false);
         } catch (Exception ex) {
-            
+
         }
     }//GEN-LAST:event_formWindowIconified
 
@@ -453,11 +449,11 @@ public class appFCRView extends javax.swing.JFrame {
             trayClose();
         } catch (Exception ex) {
             Logger.getLogger(appFCRView.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+        }
     }//GEN-LAST:event_formWindowDeiconified
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        
+
     }//GEN-LAST:event_formMouseClicked
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
@@ -468,19 +464,17 @@ public class appFCRView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formMousePressed
 
-    
-    public void trayClose()throws Exception{
+    public void trayClose() throws Exception {
         SystemTray tray = SystemTray.getSystemTray();
         TrayIcon[] icon = tray.getTrayIcons();
         tray.remove(icon[0]);
-       }
-    
-    
+    }
+
     /**
      *
      */
-    public void trayOpen (){ 
-         if (!SystemTray.isSupported()) {
+    public void trayOpen() {
+        if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
             return;
         }
@@ -488,47 +482,54 @@ public class appFCRView extends javax.swing.JFrame {
         SystemTray tray = SystemTray.getSystemTray();
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.getImage(getClass().getResource("IconFCRCalc.png"));
-    
+
         MouseListener mouseListener = new MouseListener() {
-                public void mouseClicked(MouseEvent e) {
-                    
-                }
-                public void mouseEntered(MouseEvent e) {
-                    System.out.println("Tray Icon - Mouse entered!");                 
-                }
-                public void mouseExited(MouseEvent e) {
-                    System.out.println("Tray Icon - Mouse exited!");                 
-                }
-                public void mousePressed(MouseEvent e) {
-  
-                }
-                public void mouseReleased(MouseEvent e) {
-                    System.out.println("Tray Icon - Mouse released!");                 
-                }
-            };
-        
-        
+            public void mouseClicked(MouseEvent e) {
+                appFCRView.this.setAlwaysOnTop(true);
+                appFCRView.this.setVisible(true);
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                System.out.println("Tray Icon - Mouse entered!");
+            }
+
+            public void mouseExited(MouseEvent e) {
+                System.out.println("Tray Icon - Mouse exited!");
+            }
+
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Tray Icon - Mouse released!");
+            }
+        };
+
         PopupMenu menu = new PopupMenu();
         MenuItem messageItem = new MenuItem("Teste");
         messageItem.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        }
-             @Override
-             public void actionPerformed(java.awt.event.ActionEvent ae) {
-                 JOptionPane.showMessageDialog(null, "TESTANTE !");  
-             }
+            public void actionPerformed(ActionEvent e) {
+            }
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent ae) {
+                JOptionPane.showMessageDialog(null, "TESTANTE !");
+            }
         });
-        
+
         menu.add(messageItem);
-        
+
         MenuItem closeItem = new MenuItem("Sair");
         closeItem.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        }
-             @Override
-             public void actionPerformed(java.awt.event.ActionEvent ae) {
-                 System.exit(0); 
-             }
+            public void actionPerformed(ActionEvent e) {
+            }
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent ae) {
+                System.exit(0);
+            }
         });
         menu.add(closeItem);
         TrayIcon icon = new TrayIcon(image, "Calc FCR 1.0.0", menu);
@@ -537,21 +538,17 @@ public class appFCRView extends javax.swing.JFrame {
 
         try {
             tray.add(icon);
-            
+
         } catch (AWTException e) {
-            
+
         }
-        
- 
-    }   
-        
-        
-    public void restauraFrame(){
-        
+
     }
-    
-    
-    
+
+    public void restauraFrame() {
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -585,7 +582,7 @@ public class appFCRView extends javax.swing.JFrame {
                 try {
                     new appFCRView().setVisible(true);
                 } catch (Exception e) {
-                    
+
                 }
             }
         });
